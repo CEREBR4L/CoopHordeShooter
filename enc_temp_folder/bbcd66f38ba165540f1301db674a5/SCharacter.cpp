@@ -23,14 +23,13 @@ ASCharacter::ASCharacter()
 	CameraComp->SetupAttachment(SpringArmComp);
 
 	ADSFOV = 65.f;
-	ZoomInterpSpeed = 20.f;
 }
 
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	DefaultFOV = CameraComp->FieldOfView;
+	
 }
 
 
@@ -48,6 +47,8 @@ void ASCharacter::MoveRight(float Value)
 void ASCharacter::BeginCrouch()
 {
 	Crouch();
+
+	DefaultFOV = CameraComp->FieldOfView;
 }
 
 void ASCharacter::EndCrouch()
@@ -70,9 +71,9 @@ void ASCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	float TargetFOV = bADS ? ADSFOV : DefaultFOV;
-	float NewFOV = FMath::FInterpTo(CameraComp->FieldOfView, TargetFOV, DeltaTime, ZoomInterpSpeed);
-	CameraComp->SetFieldOfView(NewFOV);
+	float CurrentFOV = bADS ? ADSFOV : DefaultFOV;
+	UE_LOG(LogTemp, Warning, TEXT("FOV: %f"), CurrentFOV)
+	CameraComp->SetFieldOfView(CurrentFOV);
 }
 
 // Called to bind functionality to input

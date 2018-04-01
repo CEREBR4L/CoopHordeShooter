@@ -47,9 +47,6 @@ protected:
 
 	void EndADS();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.1, ClampMax = 100))
-	float ZoomInterpSpeed;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
