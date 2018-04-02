@@ -7,7 +7,9 @@
 #include "GameFramework/PawnMovementComponent.h"
 #include "../Public/SWeapon.h"
 #include "TimerManager.h"
+#include "Components/CapsuleComponent.h"
 #include "Animation/AnimInstance.h"
+#include "CoopHordeGame.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -21,6 +23,8 @@ ASCharacter::ASCharacter()
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanJump = true;
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
 	CameraComp = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 	CameraComp->SetupAttachment(SpringArmComp);
