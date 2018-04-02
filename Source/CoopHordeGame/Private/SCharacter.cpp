@@ -6,6 +6,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "../Public/SWeapon.h"
+#include "TimerManager.h"
+#include "Animation/AnimInstance.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -95,6 +97,14 @@ void ASCharacter::StopFire()
 	}
 }
 
+void ASCharacter::Reload()
+{
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Reload();
+	}
+}
+
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -126,6 +136,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("ADS", IE_Pressed, this, &ASCharacter::BeginADS);
 	PlayerInputComponent->BindAction("ADS", IE_Released, this, &ASCharacter::EndADS);
+
+	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ASCharacter::Reload);
 }
 
 FVector ASCharacter::GetPawnViewLocation() const

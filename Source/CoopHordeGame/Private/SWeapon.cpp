@@ -25,6 +25,7 @@ ASWeapon::ASWeapon()
 
 	BaseDamage = 20.f;
 	RateOfFire = 600;
+	MagSize = 31;
 }
 
 void ASWeapon::BeginPlay()
@@ -32,13 +33,14 @@ void ASWeapon::BeginPlay()
 	Super::BeginPlay();
 
 	TimeBetweenShots = 60 / RateOfFire;
+	CurrentAmmoCount = MagSize;
 }
 
 void ASWeapon::Fire()
 {
 	AActor* MyOwner = GetOwner();
 
-	if (MyOwner) 
+	if (MyOwner && CurrentAmmoCount > 0) 
 	{
 		FVector EyeLocation;
 		FRotator EyeRotation;
@@ -99,6 +101,7 @@ void ASWeapon::Fire()
 		PlayFireEffects(TracerEndPoint);
 
 		LastFireTime = GetWorld()->TimeSeconds;
+		CurrentAmmoCount -= 1;
 	}
 }
 
@@ -112,6 +115,19 @@ void ASWeapon::StartFire()
 void ASWeapon::StopFire()
 {
 	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenShots);
+}
+
+void ASWeapon::Reload()
+{
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ASWeapon::ReloadWeapon, 0.5f, false, 0.5f);	
+}
+
+void ASWeapon::ReloadWeapon()
+{
+	if (MagSize != CurrentAmmoCount) {
+		CurrentAmmoCount = MagSize;
+	}
 }
 
 void ASWeapon::PlayFireEffects(FVector TracerEndPoint)

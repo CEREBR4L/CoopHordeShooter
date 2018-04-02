@@ -25,6 +25,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void StopFire();
 
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void Reload();
+
+	void ReloadWeapon();
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -72,4 +77,13 @@ protected:
 	float RateOfFire;
 
 	float TimeBetweenShots;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	int32 MagSize;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
+	int32 CurrentAmmoCount;
+
+	
+
 };
