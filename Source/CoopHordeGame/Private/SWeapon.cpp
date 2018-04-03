@@ -119,15 +119,16 @@ void ASWeapon::StopFire()
 
 void ASWeapon::Reload()
 {
+	bReloading = true;
 	FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ASWeapon::ReloadWeapon, 0.5f, false, 0.5f);	
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ASWeapon::ReloadWeapon, 1.0534f, false, 1.0534f);
+	
 }
 
 void ASWeapon::ReloadWeapon()
 {
-	if (MagSize != CurrentAmmoCount) {
-		CurrentAmmoCount = MagSize;
-	}
+	CurrentAmmoCount = MagSize;
+	bReloading = false;
 }
 
 void ASWeapon::PlayFireEffects(FVector TracerEndPoint)

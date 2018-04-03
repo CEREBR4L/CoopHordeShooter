@@ -84,6 +84,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	int32 CurrentAmmoCount;
 
-	
+	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	bool bReloading;
 
 };

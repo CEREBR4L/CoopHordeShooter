@@ -116,10 +116,10 @@ void ASCharacter::Reload()
 
 void ASCharacter::OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (Health <= 0.0f && !dDied)
+	if (Health <= 0.0f && !bDied)
 	{
 		// Die
-		dDied = true;
+		bDied = true;
 
 		GetMovementComponent()->StopMovementImmediately();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
