@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ASWeapon;
+class USHealthComponent;
 
 UCLASS()
 class COOPHORDEGAME_API ASCharacter : public ACharacter
@@ -36,6 +37,8 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent* SpringArmComp;
+
+	USHealthComponent* HealthComp;
 
 	bool bADS;
 
@@ -66,6 +69,11 @@ protected:
 
 	void Reload();
 
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	bool dDied;
 
 public:	
 	// Called every frame
