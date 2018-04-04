@@ -40,8 +40,12 @@ void ASWeapon::BeginPlay()
 
 void ASWeapon::Fire()
 {
-	AActor* MyOwner = GetOwner();
+	if (Role < ROLE_Authority)
+	{
+		ServerFire();
+	}
 
+	AActor* MyOwner = GetOwner();
 	if (MyOwner && CurrentAmmoCount > 0) 
 	{
 		FVector EyeLocation;
@@ -105,6 +109,16 @@ void ASWeapon::Fire()
 		LastFireTime = GetWorld()->TimeSeconds;
 		CurrentAmmoCount -= 1;
 	}
+}
+
+void ASWeapon::ServerFire_Implementation()
+{
+	Fire();
+}
+
+bool ASWeapon::ServerFire_Validate()
+{
+	return true;
 }
 
 void ASWeapon::StartFire()
