@@ -26,6 +26,8 @@ ASWeapon::ASWeapon()
 	BaseDamage = 20.f;
 	RateOfFire = 600;
 	MagSize = 31;
+
+	SetReplicates(true);
 }
 
 void ASWeapon::BeginPlay()
