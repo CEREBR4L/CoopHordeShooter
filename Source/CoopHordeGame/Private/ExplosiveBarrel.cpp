@@ -6,6 +6,7 @@
 #include "PhysicsEngine/RadialForceComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel()
@@ -54,6 +55,8 @@ void AExplosiveBarrel::Explode(float Health)
 		MeshComp->AddImpulse(BoostIntensity, NAME_None, true);
 
 		RadialForceComp->FireImpulse();
+
+		UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
 
 		SetLifeSpan(60.0f);
 	}

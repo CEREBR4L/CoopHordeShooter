@@ -10,6 +10,7 @@ class USHealthComponent;
 class URadialForceComponent;
 class UParticleSystem;
 class UStaticMeshComponent;
+class USoundCue;
 
 UCLASS()
 class COOPHORDEGAME_API AExplosiveBarrel : public AActor
@@ -50,5 +51,8 @@ protected:
 
 	UFUNCTION()
 	void OnRep_BarrelExploded();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	USoundCue* ExplodeSound;
 	
 };
