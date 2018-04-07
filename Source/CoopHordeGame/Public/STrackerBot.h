@@ -80,6 +80,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
 	USoundCue* ExplodeSound;
 
+	void OnCheckNearbyBots();
+
+	int32 PowerLevel;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	int32 MaxPowerLevel;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
