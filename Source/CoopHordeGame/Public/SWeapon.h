@@ -9,6 +9,7 @@
 class USkeletalMeshComponent;
 class UDamageType;
 class UParticleSystem;
+class USoundCue;
 
 // Contains info of hitscan line trace
 USTRUCT()
@@ -111,4 +112,7 @@ protected:
 
 	UFUNCTION()
 	void OnRep_HitScanTrace();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	USoundCue* FireSound;
 };

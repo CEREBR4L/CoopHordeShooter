@@ -55,4 +55,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
 	USoundCue* ExplodeSound;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	float ExplosionRadius;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	float ExplosionDamage;
+
 };

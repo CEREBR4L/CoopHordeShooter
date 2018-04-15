@@ -2,6 +2,8 @@
 
 #include "SPowerupActor.h"
 #include "Net/UnrealNetwork.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 #include "../Public/SPowerupActor.h"
 
 
@@ -36,6 +38,11 @@ void ASPowerupActor::ActivatePowerup(AActor* ActivateFor)
 void ASPowerupActor::OnRep_PowerupActive()
 {
 	OnPowerupStateChanged(bIsPowerupActive);
+
+	if (PowerupActivedSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, PowerupActivedSound, GetActorLocation());
+	}
 }
 
 void ASPowerupActor::OnTickPowerUp()

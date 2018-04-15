@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "Sound/SoundCue.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel()
@@ -27,6 +28,8 @@ AExplosiveBarrel::AExplosiveBarrel()
 	RadialForceComp->bIgnoreOwningActor = true;
 
 	ExplosionImpulse = 400;
+	ExplosionDamage = 10.f;
+	ExplosionRadius = 300.f;
 
 	SetReplicates(true);
 	SetReplicateMovement(true);
@@ -56,15 +59,27 @@ void AExplosiveBarrel::Explode(float Health)
 
 		RadialForceComp->FireImpulse();
 
-		UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
-
 		SetLifeSpan(60.0f);
+
+		if (Role == ROLE_Authority)
+		{
+			TArray<AActor*> IgnoredActors;
+			IgnoredActors.Add(this);
+
+			UGameplayStatics::ApplyRadialDamage(this, ExplosionDamage, GetActorLocation(), ExplosionRadius, nullptr, IgnoredActors, this, GetInstigatorController(), true);
+
+			DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Red, false, 30.f, 0, 1.f);
+
+			SetLifeSpan(45.0f);
+		}
+
 	}
 }
 
 void AExplosiveBarrel::OnRep_BarrelExploded()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());
+	UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
 	MeshComp->SetMaterial(0, ExplosionMaterial);
 }
 

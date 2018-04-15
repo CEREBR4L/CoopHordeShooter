@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "SPowerupActor.generated.h"
 
+class USoundCue;
+
 UCLASS()
 class COOPHORDEGAME_API ASPowerupActor : public AActor
 {
@@ -53,5 +55,8 @@ protected:
 
 	UFUNCTION()
 	void OnTickPowerUp();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	USoundCue* PowerupActivedSound;
 
 };
