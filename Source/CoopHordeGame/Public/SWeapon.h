@@ -104,7 +104,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	int32 CurrentAmmoCount;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	UPROPERTY(EditDefaultsOnly, Category = "Reloading")
+	float ReloadTime;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Reloading")
 	bool bReloading;
 
 	UPROPERTY(ReplicatedUsing=OnRep_HitScanTrace)
@@ -115,4 +118,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
 	USoundCue* FireSound;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+	USoundCue* ReloadSound;
 };

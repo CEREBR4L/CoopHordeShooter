@@ -28,6 +28,7 @@ ASWeapon::ASWeapon()
 	BaseDamage = 20.f;
 	RateOfFire = 600;
 	MagSize = 31;
+	ReloadTime = 0.5f;
 
 	SetReplicates(true);
 	NetUpdateFrequency = 66.f;
@@ -141,8 +142,12 @@ void ASWeapon::Reload()
 {
 	bReloading = true;
 	FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ASWeapon::ReloadWeapon, 1.0534f, false, 1.0534f);
-	
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ASWeapon::ReloadWeapon, ReloadTime);
+
+	if (ReloadSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ReloadSound, GetActorLocation());
+	}
 }
 
 void ASWeapon::ReloadWeapon()
