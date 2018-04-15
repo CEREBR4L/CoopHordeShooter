@@ -7,6 +7,7 @@
 #include "SPickupActor.generated.h"
 
 class USphereComponent;
+class ASPowerupActor;
 
 UCLASS()
 class COOPHORDEGAME_API ASPickupActor : public AActor
@@ -26,6 +27,19 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UDecalComponent* DecalComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "PickupActor")
+	TSubclassOf<ASPowerupActor> PowerUpClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "PickupActor")
+	float CooldownDuration;
+
+	FTimerHandle TimerHandle_RespawnTimer;
+
+	ASPowerupActor* PowerupInstance;
+
+	UFUNCTION()
+	void Respawn();
 
 public:
 
