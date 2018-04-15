@@ -6,6 +6,7 @@
 #include "TimerManager.h"
 #include "../Public/SPowerupActor.h"
 #include "../Public/SPickupActor.h"
+#include "../Public/SCharacter.h"
 
 // Sets default values
 ASPickupActor::ASPickupActor()
@@ -52,7 +53,10 @@ void ASPickupActor::NotifyActorBeginOverlap(AActor * OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if (Role == ROLE_Authority && PowerupInstance) {
+	// Make sure we only active picks for players
+	ASCharacter* PlayerPawn = Cast<ASCharacter>(OtherActor);
+
+	if (Role == ROLE_Authority && PowerupInstance && PlayerPawn) {
 		PowerupInstance->ActivatePowerup(OtherActor);
 		PowerupInstance = nullptr;
 
