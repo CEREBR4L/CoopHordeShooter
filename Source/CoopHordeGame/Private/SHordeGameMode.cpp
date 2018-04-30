@@ -40,6 +40,36 @@ void ASHordeGameMode::CheckWaveState()
 
 }
 
+void ASHordeGameMode::CheckAnyPlayerAlive()
+{
+	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It) 
+	{
+		APlayerController* PC = It->Get();
+		if (PC && PC->GetPawn())
+		{
+			APawn* MyPawn = PC->GetPawn();
+			USHealthComponent* HealthComp = Cast<USHealthComponent>(MyPawn->GetComponentByClass(USHealthComponent::StaticClass()));
+
+			if (ensure(HealthComp) && HealthComp->GetHealth() > 0.f)
+			{
+				//Player Alive
+				return;
+			}
+		}
+	}
+
+	GameOver();
+
+}
+
+void ASHordeGameMode::GameOver()
+{
+	EndWave();
+
+	// @TODO: Finish up the match, show feedback to user.
+	UE_LOG(LogTemp, Log, TEXT("GAME OVER!"))
+}
+
 ASHordeGameMode::ASHordeGameMode()
 {
 	WaveCount = 0;
@@ -78,6 +108,8 @@ void ASHordeGameMode::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	CheckWaveState();
+
+	CheckAnyPlayerAlive();
 }
 
 void ASHordeGameMode::PrepareForNextWave()
