@@ -2,7 +2,21 @@
 
 #include "SHordeGameMode.h"
 #include "../Public/SHealthComponent.h"
+#include "../Public/SGameState.h"
 #include "TimerManager.h"
+
+
+ASHordeGameMode::ASHordeGameMode()
+{
+	WaveCount = 0;
+	TimeBetweenWaves = 15.f;
+
+	GameStateClass = ASGameState::StaticClass();
+
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.TickInterval = 1.f;
+}
+
 
 void ASHordeGameMode::CheckWaveState()
 {
@@ -70,14 +84,15 @@ void ASHordeGameMode::GameOver()
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!"))
 }
 
-ASHordeGameMode::ASHordeGameMode()
+void ASHordeGameMode::SetWaveState(EWaveState WaveState)
 {
-	WaveCount = 0;
-	TimeBetweenWaves = 15.f;
-
-	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.TickInterval = 1.f;
+	ASGameState* GS = GetGameState<ASGameState>();
+	if (ensureAlways(GS)) 
+	{
+		GS->WaveState = WaveState;
+	}
 }
+
 
 void ASHordeGameMode::StartWave()
 {

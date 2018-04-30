@@ -6,9 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "SHordeGameMode.generated.h"
 
-/**
- * 
- */
+enum class EWaveState : uint8;
+
 UCLASS()
 class COOPHORDEGAME_API ASHordeGameMode : public AGameModeBase
 {
@@ -43,6 +42,8 @@ protected:
 	void CheckAnyPlayerAlive();
 
 	void GameOver();
+
+	void SetWaveState(EWaveState WaveState);
 
 public:
 
