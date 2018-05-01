@@ -9,6 +9,15 @@ void ASGameState::Onrep_WaveState(EWaveState OldState)
 	WaveStateChanged(WaveState, OldState);
 }
 
+void ASGameState::SetWaveState(EWaveState NewState)
+{
+	if (Role == ROLE_Authority) {
+		EWaveState OldState = WaveState;
+
+		WaveState = NewState;
+		Onrep_WaveState(OldState);
+	}
+}
 
 void ASGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> &OutLifetimeProps) const
 {

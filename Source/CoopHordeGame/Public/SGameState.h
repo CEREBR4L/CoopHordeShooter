@@ -13,6 +13,7 @@ enum class EWaveState : uint8
 	PreparingNextWave,
 	WaveInProgress,
 	WaitingToComplete,
+	WaveComplete,
 	GameOver,
 };
 
@@ -29,10 +30,10 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameState")
 	void WaveStateChanged(EWaveState NewState, EWaveState OldState);
 
-public:
-
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=Onrep_WaveState, Category = "GameState")
 	EWaveState WaveState;
-	
+public:
+
+	void SetWaveState(EWaveState NewState);
 	
 };
