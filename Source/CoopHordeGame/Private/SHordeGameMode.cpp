@@ -3,6 +3,7 @@
 #include "SHordeGameMode.h"
 #include "../Public/SHealthComponent.h"
 #include "../Public/SGameState.h"
+#include "../Public/SPlayerState.h"
 #include "TimerManager.h"
 
 
@@ -12,6 +13,7 @@ ASHordeGameMode::ASHordeGameMode()
 	TimeBetweenWaves = 15.f;
 
 	GameStateClass = ASGameState::StaticClass();
+	PlayerStateClass = ASPlayerState::StaticClass();
 
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.TickInterval = 1.f;
