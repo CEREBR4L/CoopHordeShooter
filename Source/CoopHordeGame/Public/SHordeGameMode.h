@@ -47,6 +47,8 @@ protected:
 
 	void SetWaveState(EWaveState WaveState);
 
+	void RespawnDeadPlayers();
+
 public:
 
 	ASHordeGameMode();
